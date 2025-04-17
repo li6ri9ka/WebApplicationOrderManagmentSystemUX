@@ -1,0 +1,113 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a0033, #0d001a);
+
+}
+
+.card {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 12px;
+    padding: 40px 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+    background: linear-gradient(to right, #fff, #c9b2ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Изменения только здесь для выравнивания */
+.label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    padding-left: 12px; /* Увеличил отступ для выравнивания с placeholder */
+    margin-bottom: 2px; /* Минимальный отступ между label и input */
+}
+
+.input {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-size: 15px;
+    /* Добавил для выравнивания текста */
+    line-height: 1.5;
+    height: 48px;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #9c4dff;
+    box-shadow: 0 0 0 3px rgba(156, 77, 255, 0.2);
+}
+
+.submitButton {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(to right, #7b2cff, #5e00ff);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 8px;
+    /* Добавил для выравнивания высоты */
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submitButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(123, 44, 255, 0.3);
+}
+
+.footer {
+    text-align: center;
+    margin-top: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    /* Добавил для выравнивания */
+    line-height: 1.5;
+}
+
+.linkButton {
+    background: none;
+    border: none;
+    color: #9c4dff;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+    /* Добавил для выравнивания */
+    vertical-align: baseline;
+}

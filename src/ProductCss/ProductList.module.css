@@ -1,0 +1,216 @@
+.productList {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.topButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.addButton {
+    padding: 0.6rem 1.2rem;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.addButton:hover {
+    background-color: #219653;
+    transform: translateY(-2px);
+}
+
+.toggleDeleteButton {
+    padding: 0.6rem 1.2rem;
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.toggleDeleteButton:hover {
+    background-color: #d35400;
+    transform: translateY(-2px);
+}
+
+.deleteForm {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.deleteForm h3 {
+    margin-top: 0;
+    color: #e74c3c;
+}
+
+.deleteInput {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 200px;
+    margin-right: 1rem;
+}
+
+.deleteConfirmButton {
+    padding: 0.8rem 1.5rem;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.deleteConfirmButton:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.productUl {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.productItem {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s;
+}
+
+.productItem:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.productInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.productDetails {
+    flex-grow: 1;
+}
+
+.productDetails strong {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.productMeta {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.productMeta span {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.actionButtons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.actionButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.3rem;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.editButton {
+    color: #3498db;
+}
+
+.editButton:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.deleteButton {
+    color: #e74c3c;
+}
+
+.deleteButton:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+.loading, .error {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+}
+
+.loading {
+    color: #7f8c8d;
+}
+
+.error {
+    color: #e74c3c;
+}
+
+@media (max-width: 768px) {
+    .productInfo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .actionButtons {
+        align-self: flex-end;
+    }
+
+    .productMeta {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .deleteForm {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .deleteInput {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+}

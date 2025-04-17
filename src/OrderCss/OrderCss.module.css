@@ -1,0 +1,166 @@
+.orderList {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.topButtons {
+    margin-bottom: 1.5rem;
+}
+
+.addButton {
+    padding: 0.6rem 1.2rem;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.addButton:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.orderUl {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.orderItem {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s;
+}
+
+.orderItem:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.orderInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.orderDetails {
+    flex-grow: 1;
+}
+
+.orderDetails strong {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.orderMeta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem 1.5rem;
+}
+
+.orderMeta span {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.status-new {
+    color: #3498db;
+    font-weight: 500;
+}
+
+.status-processing {
+    color: #f39c12;
+    font-weight: 500;
+}
+
+.status-completed {
+    color: #27ae60;
+    font-weight: 500;
+}
+
+.status-cancelled {
+    color: #e74c3c;
+    font-weight: 500;
+}
+
+.actionButtons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.actionButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.3rem;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.editButton {
+    color: #3498db;
+}
+
+.editButton:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.deleteButton {
+    color: #e74c3c;
+}
+
+.deleteButton:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+.loading {
+    text-align: center;
+    padding: 2rem;
+    color: #7f8c8d;
+    font-size: 1.2rem;
+}
+
+.error {
+    text-align: center;
+    padding: 2rem;
+    color: #e74c3c;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .orderInfo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .actionButtons {
+        align-self: flex-end;
+    }
+
+    .orderMeta {
+        grid-template-columns: 1fr;
+    }
+}
