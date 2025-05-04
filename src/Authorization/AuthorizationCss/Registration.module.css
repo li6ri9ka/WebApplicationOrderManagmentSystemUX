@@ -40,12 +40,12 @@
     gap: 8px;
 }
 
-/* Изменения только здесь для выравнивания */
+
 .label {
     font-size: 14px;
     color: rgba(255, 255, 255, 0.8);
-    padding-left: 12px; /* Увеличил отступ для выравнивания с placeholder */
-    margin-bottom: 2px; /* Минимальный отступ между label и input */
+    padding-left: 12px;
+    margin-bottom: 2px;
 }
 
 .input {
@@ -56,7 +56,7 @@
     border-radius: 8px;
     color: white;
     font-size: 15px;
-    /* Добавил для выравнивания текста */
+
     line-height: 1.5;
     height: 48px;
     box-sizing: border-box;
@@ -79,7 +79,6 @@
     font-size: 15px;
     cursor: pointer;
     margin-top: 8px;
-    /* Добавил для выравнивания высоты */
     height: 48px;
     display: flex;
     align-items: center;
@@ -96,7 +95,6 @@
     margin-top: 16px;
     color: rgba(255, 255, 255, 0.7);
     font-size: 14px;
-    /* Добавил для выравнивания */
     line-height: 1.5;
 }
 
@@ -108,6 +106,5 @@
     cursor: pointer;
     padding: 0;
     font-size: 14px;
-    /* Добавил для выравнивания */
     vertical-align: baseline;
 }

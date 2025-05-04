@@ -214,3 +214,24 @@
         margin-bottom: 1rem;
     }
 }
+
+
+.addToCartButton {
+    padding: 0.6rem 1.2rem;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.addToCartButton:hover {
+    background-color: #219653;
+    transform: translateY(-2px);
+}
+
+.setError{
+    color: #d35400;
+}

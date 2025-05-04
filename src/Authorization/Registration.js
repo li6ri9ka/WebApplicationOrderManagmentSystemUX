@@ -1,24 +1,62 @@
-import React from "react";
-import styles from "../AuthorizationCss/Registration.module.css";
-import {useNavigate} from "react-router-dom";
+import React, { useState } from "react";
+import styles from "./AuthorizationCss/Registration.module.css";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const RegisterForm = () => {
     const navigate = useNavigate();
-    const handleRegisterClick = () => {
-        navigate("/entry");
-    }
+
+    const [email, setEmail] = useState("");
+    const [login, setLogin] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState(""); // Для отображения ошибок
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+
+        // Проверяем, что все поля заполнены
+        if (!email || !login || !password) {
+            setError("Пожалуйста, заполните все поля");
+            return;
+        }
+
+        const user = {
+            login,
+            password,
+            email
+        };
+
+        try {
+            const response = await axios.post("http://localhost:8082/api/auth/register", user);
+            if (response.status === 201) {
+                navigate("/entry");
+            }
+        } catch (err) {
+            if (err.response) {
+                setError("Ошибка при регистрации: " + err.response.data);
+            } else {
+                setError("Произошла ошибка при связи с сервером.");
+            }
+        }
+    };
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.card}>
                 <h1 className={styles.title}>Регистрация</h1>
 
-                <form className={styles.form}>
+                {/* Ошибка */}
+                {error && <div className={styles.error}>{error}</div>}
+
+                <form className={styles.form} onSubmit={handleRegister}>
                     <div className={styles.field}>
-                        <label className={styles.label}>Имя</label>
+                        <label className={styles.label}>Email</label>
                         <input
                             type="text"
-                            placeholder="Введите ваше имя"
+                            placeholder="Введите ваш Email"
                             className={styles.input}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
 
@@ -28,6 +66,8 @@ const RegisterForm = () => {
                             type="text"
                             placeholder="Придумайте логин"
                             className={styles.input}
+                            value={login}
+                            onChange={(e) => setLogin(e.target.value)}
                         />
                     </div>
 
@@ -37,6 +77,8 @@ const RegisterForm = () => {
                             type="password"
                             placeholder="Придумайте пароль"
                             className={styles.input}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
 
@@ -51,7 +93,7 @@ const RegisterForm = () => {
                         <button
                             type="button"
                             className={styles.linkButton}
-                            onClick={handleRegisterClick}
+                            onClick={() => navigate("/entry")}
                         >
                             Войти
                         </button>

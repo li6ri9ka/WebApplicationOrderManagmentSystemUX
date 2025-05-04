@@ -1,7 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import styles from '../ProductCss/CreateProduct.module.css';
+import styles from '../Css/ProductCss/CreateProduct.module.css';
+
+function parseJwt(token) {
+    if (!token) return null;
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    } catch (e) {
+        console.error('Ошибка парсинга токена', e);
+        return null;
+    }
+}
 
 const CreateProduct = () => {
     const [product, setProduct] = useState({
@@ -13,6 +28,16 @@ const CreateProduct = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const parsed = parseJwt(token);
+
+        if (!token || !parsed || parsed.role !== 'ADMIN') {
+            alert('Доступ запрещён. Требуется роль ADMIN.');
+            navigate('/'); // или '/login'
+        }
+    }, [navigate]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProduct(prev => ({ ...prev, [name]: value }));
@@ -22,7 +47,13 @@ const CreateProduct = () => {
         e.preventDefault();
         setLoading(true);
 
-        axios.post("http://localhost:8082/api/product/newProduct", product)
+        const token = localStorage.getItem('token');
+
+        axios.post("http://localhost:8082/api/product/newProduct", product, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then(() => {
                 alert('Продукт успешно создан!');
                 navigate('/products');

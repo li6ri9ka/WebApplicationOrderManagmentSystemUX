@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import styles from '../CustomerCss/CreateCustomer.module.css';
+import styles from '../Css/CustomerCss/CreateCustomer.module.css';
 
 const CreateCustomer = () => {
     const [customer, setCustomer] = useState({

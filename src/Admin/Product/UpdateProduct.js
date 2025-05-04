@@ -1,7 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import styles from '../ProductCss/UpdateProduct.module.css';
+import styles from '../Css/ProductCss/UpdateProduct.module.css';
+
+function parseJwt(token) {
+    if (!token) return null;
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    } catch (e) {
+        console.error('Ошибка парсинга токена', e);
+        return null;
+    }
+}
 
 const UpdateProduct = () => {
     const [product, setProduct] = useState({
@@ -16,7 +31,20 @@ const UpdateProduct = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`http://localhost:8082/api/product/updateProduct/${id}`)
+        const token = localStorage.getItem('token');
+        const parsed = parseJwt(token);
+
+        if (!token || !parsed || parsed.role !== 'ADMIN') {
+            alert('Доступ запрещён. Требуется роль ADMIN.');
+            navigate('/'); // или '/login'
+            return;
+        }
+
+        axios.get(`http://localhost:8082/api/product/updateProduct/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then((response) => {
                 setProduct(response.data);
                 setLoading(false);
@@ -26,7 +54,7 @@ const UpdateProduct = () => {
                 setLoading(false);
                 console.error('Ошибка загрузки:', error);
             });
-    }, [id]);
+    }, [id, navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -37,7 +65,13 @@ const UpdateProduct = () => {
         e.preventDefault();
         setLoading(true);
 
-        axios.put(`http://localhost:8082/api/product/updateProduct/${id}`, product)
+        const token = localStorage.getItem('token');
+
+        axios.put(`http://localhost:8082/api/product/updateProduct/${id}`, product, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then(() => {
                 alert('Продукт успешно обновлен!');
                 navigate('/products');

@@ -1,7 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import styles from '../CustomerCss/CustomerList.module.css';
+import styles from '../Css/CustomerCss/CustomerList.module.css';
+
+function parseJwt(token) {
+    if (!token) return null;
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(
+            window.atob(base64).split('').map(c =>
+                '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+            ).join('')
+        );
+        return JSON.parse(jsonPayload);
+    } catch (e) {
+        console.error('Ошибка парсинга токена', e);
+        return null;
+    }
+}
 
 const CustomerList = () => {
     const [customers, setCustomers] = useState([]);
@@ -10,11 +27,29 @@ const CustomerList = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchCustomers();
-    }, []);
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+            return;
+        }
 
-    const fetchCustomers = () => {
-        axios.get('http://localhost:8082/api/customers')
+        const parsedToken = parseJwt(token);
+        const role = parsedToken?.role?.toUpperCase();
+
+        if (role !== 'ADMIN') {
+            navigate('/'); // редиректим, если не админ
+            return;
+        }
+
+        fetchCustomers(token);
+    }, [navigate]);
+
+    const fetchCustomers = (token) => {
+        axios.get('http://localhost:8082/api/user', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then(response => {
                 setCustomers(response.data);
                 setLoading(false);
@@ -30,7 +65,13 @@ const CustomerList = () => {
         const confirmDelete = window.confirm('Вы уверены, что хотите удалить клиента?');
         if (!confirmDelete) return;
 
-        axios.delete(`http://localhost:8082/api/customers/deleteCustomer/${id}`)
+        const token = localStorage.getItem('token');
+
+        axios.delete(`http://localhost:8082/api/user/deleteUser/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then(() => {
                 setCustomers(customers.filter(c => c.id !== id));
             })
@@ -46,26 +87,19 @@ const CustomerList = () => {
     return (
         <div className={styles.customerList}>
             <h2 className={styles.title}>Клиенты</h2>
-            <button
-                className={styles.addButton}
-                onClick={() => navigate('/newCustomer')}
-            >
-                ➕ Добавить клиента
-            </button>
-
             <ul className={styles.customerUl}>
                 {customers.map(customer => (
                     <li key={customer.id} className={styles.customerItem}>
                         <div className={styles.customerInfo}>
                             <div className={styles.customerDetails}>
-                                <strong>{customer.id}. {customer.name_customer}</strong>
-                                <span>Логин: {customer.login_customer}</span>
-                                <span>Пароль: {customer.password_customer}</span>
+                                <strong>ID: {customer.id}</strong>
+                                <span>Логин: {customer.login}</span>
+                                <span>Email: {customer.email}</span>
                             </div>
                             <div className={styles.actionButtons}>
                                 <button
                                     className={`${styles.actionButton} ${styles.editButton}`}
-                                    onClick={() => navigate(`/updateCustomer/${customer.id}`)}
+                                    onClick={() => navigate(`/updateUser/${customer.id}`)}
                                     title="Редактировать клиента"
                                 >
                                     ✏️
