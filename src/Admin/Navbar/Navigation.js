@@ -57,7 +57,7 @@ const Navigation = () => {
         };
     }, []);
 
-    if (!role) return null; // можно показать "Загрузка..." если хочешь
+    if (!role) return null;
 
     return (
         <nav className={styles.nav}>

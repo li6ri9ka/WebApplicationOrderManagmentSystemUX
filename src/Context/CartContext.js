@@ -9,7 +9,6 @@ export const CartProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [productsCache, setProductsCache] = useState({});
 
-    // Функция для парсинга JWT токена
     const parseJwt = (token) => {
         try {
             if (!token) return null;
@@ -27,7 +26,6 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Проверка авторизации
     const checkAuth = () => {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -46,7 +44,6 @@ export const CartProvider = ({ children }) => {
         return true;
     };
 
-    // Загрузка корзины из localStorage
     useEffect(() => {
         const loadCart = () => {
             try {
@@ -61,16 +58,16 @@ export const CartProvider = ({ children }) => {
         loadCart();
     }, []);
 
-    // Сохранение корзины в localStorage
+
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
 
-    // Альтернативный метод получения данных о товаре
+
     const fetchProductData = async (productId) => {
         try {
             const token = localStorage.getItem('token');
-            // Пробуем разные варианты endpoints
+
             const endpoints = [
                 'http://localhost:8082/api/product'
             ];
@@ -84,7 +81,7 @@ export const CartProvider = ({ children }) => {
                     });
 
                     if (response.data && Array.isArray(response.data)) {
-                        // Ищем товар, учитывая что ID может быть строкой или числом
+
                         const product = response.data.find(p =>
                             p.id == productId ||
                             p.productId == productId ||
@@ -106,7 +103,7 @@ export const CartProvider = ({ children }) => {
                 throw new Error('Товар не найден в ответе API');
             }
 
-            // Нормализация данных товара
+
             return {
                 id: productData.id || productData.productId || productData.id_product || productId,
                 name: productData.name_product || productData.name || productData.productName || `Товар ${productId}`,
@@ -124,7 +121,7 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Основной метод добавления в корзину
+
     const addToCart = async (product) => {
         if (!checkAuth()) return false;
 
@@ -143,7 +140,7 @@ export const CartProvider = ({ children }) => {
                     }));
                 }
             } else {
-                // Нормализация данных при прямом добавлении объекта
+
                 productToAdd = {
                     id: product.id || product.productId || product.id_product,
                     name: product.name_product || product.name || product.productName || `Товар ${product.id}`,
@@ -152,7 +149,7 @@ export const CartProvider = ({ children }) => {
                 };
             }
 
-            // Используем нестрогое сравнение для ID
+
             setCartItems(prev => {
                 const existingItem = prev.find(item => item.id == productToAdd.id);
                 if (existingItem) {
@@ -195,7 +192,7 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Обновление количества
+
     const updateQuantity = (productId, newQuantity) => {
         setCartItems(prev =>
             prev.map(item =>
@@ -206,17 +203,17 @@ export const CartProvider = ({ children }) => {
         );
     };
 
-    // Удаление из корзины
+
     const removeFromCart = (productId) => {
         setCartItems(prev => prev.filter(item => item.id !== productId));
     };
 
-    // Очистка корзины
+
     const clearCart = () => {
         setCartItems([]);
     };
 
-    // Расчет общей суммы
+
     const getCartTotal = () => {
         return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
     };

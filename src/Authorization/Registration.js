@@ -9,12 +9,11 @@ const RegisterForm = () => {
     const [email, setEmail] = useState("");
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(""); // Для отображения ошибок
+    const [error, setError] = useState("");
 
     const handleRegister = async (e) => {
         e.preventDefault();
 
-        // Проверяем, что все поля заполнены
         if (!email || !login || !password) {
             setError("Пожалуйста, заполните все поля");
             return;
@@ -45,7 +44,6 @@ const RegisterForm = () => {
             <div className={styles.card}>
                 <h1 className={styles.title}>Регистрация</h1>
 
-                {/* Ошибка */}
                 {error && <div className={styles.error}>{error}</div>}
 
                 <form className={styles.form} onSubmit={handleRegister}>

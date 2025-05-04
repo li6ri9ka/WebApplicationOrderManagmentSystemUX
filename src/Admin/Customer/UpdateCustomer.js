@@ -35,7 +35,7 @@ const UpdateCustomer = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            navigate('/login'); // Если нет токена, редирект на страницу входа
+            navigate('/login');
             return;
         }
 
@@ -43,14 +43,14 @@ const UpdateCustomer = () => {
         const role = parsedToken?.role?.toUpperCase();
 
         if (role !== 'ADMIN') {
-            navigate('/'); // Если не админ, редирект на главную страницу
+            navigate('/');
             return;
         }
 
         // Добавляем токен в заголовок для авторизации
         axios.get(`http://localhost:8082/api/user/updateUser/${id}`, {
             headers: {
-                Authorization: `Bearer ${token}`  // Передаем токен
+                Authorization: `Bearer ${token}`
             }
         })
             .then((response) => {
@@ -60,7 +60,7 @@ const UpdateCustomer = () => {
             .catch((error) => {
                 if (error.response && error.response.status === 403) {
                     setError('У вас нет прав для доступа к этим данным');
-                    navigate('/'); // Редирект на главную страницу в случае ошибки 403
+                    navigate('/');
                 } else {
                     setError('Не удалось загрузить данные клиента');
                 }
@@ -77,7 +77,7 @@ const UpdateCustomer = () => {
         e.preventDefault();
         const token = localStorage.getItem('token');
 
-        // Добавляем токен в заголовки при отправке PUT-запроса
+
         axios.put(`http://localhost:8082/api/user/updateUser/${id}`, user, {
             headers: {
                 Authorization: `Bearer ${token}`

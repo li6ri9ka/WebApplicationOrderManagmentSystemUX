@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../Css/NavbarCss/Home.module.css';  // Импорт стилей как объекта
+import styles from '../Css/NavbarCss/Home.module.css';
 
 const Home = () => {
     return (

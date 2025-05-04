@@ -4,7 +4,6 @@ import axios from 'axios';
 import styles from '../Css/Cart.module.css';
 import { CartContext } from '../../Context/CartContext';
 
-// Функция для парсинга JWT токена
 const parseJwt = (token) => {
     if (!token) return null;
     try {
@@ -28,7 +27,7 @@ const Cart = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    // Проверка авторизации при загрузке
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -43,7 +42,7 @@ const Cart = () => {
         }
     }, [navigate]);
 
-    // Расчет общей суммы с защитой от undefined
+
     const calculateTotal = () => {
         return cartItems.reduce((total, item) => {
             const price = item?.price ? Number(item.price) : 0;
@@ -52,7 +51,7 @@ const Cart = () => {
         }, 0);
     };
 
-    // Оформление заказа с проверкой токена
+
     const handleCheckout = async () => {
         try {
             setIsLoading(true);
@@ -64,7 +63,7 @@ const Cart = () => {
                 return;
             }
 
-            // Проверяем токен
+
             const decodedToken = parseJwt(token);
             if (!decodedToken) {
                 localStorage.removeItem('token');
@@ -72,7 +71,7 @@ const Cart = () => {
                 return;
             }
 
-            // Проверяем наличие обязательных полей
+
             const validItems = cartItems.filter(item =>
                 item?.id && item?.price && item?.quantity && item?.name
             );
@@ -119,7 +118,7 @@ const Cart = () => {
         }
     };
 
-    // Управление количеством товара
+
     const handleQuantityChange = (id, change) => {
         const item = cartItems.find(i => i.id === id);
         if (item) {

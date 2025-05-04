@@ -26,7 +26,7 @@ const DeleteCustomer = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
-            navigate('/login'); // Если нет токена, редирект на страницу входа
+            navigate('/login');
             return;
         }
 
@@ -34,7 +34,7 @@ const DeleteCustomer = () => {
         const role = parsedToken?.role?.toUpperCase();
 
         if (role !== 'ADMIN') {
-            navigate('/'); // Если не админ, редирект на главную страницу
+            navigate('/');
             return;
         }
 
@@ -59,7 +59,7 @@ const DeleteCustomer = () => {
         }
     }, [id, navigate]);
 
-    return null; // Компонент не рендерит ничего, если удаление не выполнено
+    return null;
 };
 
 export default DeleteCustomer;

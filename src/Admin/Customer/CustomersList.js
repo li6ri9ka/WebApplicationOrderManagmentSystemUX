@@ -37,7 +37,7 @@ const CustomerList = () => {
         const role = parsedToken?.role?.toUpperCase();
 
         if (role !== 'ADMIN') {
-            navigate('/'); // редиректим, если не админ
+            navigate('/');
             return;
         }
 

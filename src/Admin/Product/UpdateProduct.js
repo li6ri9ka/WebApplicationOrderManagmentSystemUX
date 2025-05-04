@@ -36,7 +36,7 @@ const UpdateProduct = () => {
 
         if (!token || !parsed || parsed.role !== 'ADMIN') {
             alert('Доступ запрещён. Требуется роль ADMIN.');
-            navigate('/'); // или '/login'
+            navigate('/');
             return;
         }
 
